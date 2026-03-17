@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoggerService } from '../../../lib/my-library';
 
 @Component({
   selector: 'app-demos',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
   templateUrl: './demos.html',
   styleUrl: './demos.css',
 })
-export class Demos {}
+export class Demos {
+  constructor(private out: LoggerService) {
+    out.error('Esto es una demo de error')
+    out.warn('Esto es una demo de warn')
+    out.info('Esto es una demo de info')
+    out.log('Esto es una demo de log')
+  }
+}
