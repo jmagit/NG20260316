@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { LoggerService } from '../../../lib/my-library';
 
 @Component({
   selector: 'app-home',
@@ -8,4 +9,7 @@ import { Component, signal } from '@angular/core';
 })
 export class Home {
     protected readonly title = signal('curso');
+  constructor(out: LoggerService) {
+    // out.log('Entro en la página de inicio')
+  }
 }
