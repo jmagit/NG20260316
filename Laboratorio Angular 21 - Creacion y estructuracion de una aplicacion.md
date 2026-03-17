@@ -185,7 +185,7 @@ Añadir a la configuración de "serve" en `angular.json` (linea 78 aprox.)
 
 ### index.html
 
-Editar 'src/index.html':
+Editar `src/index.html`:
 
 ```html
 <!doctype html>
@@ -314,9 +314,7 @@ ng g c main/PageNotFound
 
 #### Plantilla del componente
 
-Mover el resto del contenido de `src/app/app.html`, salvo la última línea (`<router-outlet />`) a `src/app/main/home/home.html` sustituyendo su contenido.
-
-`src/app/main/page-not-found/page-not-found.html`
+Sustituir el contenido de la plantilla `src/app/main/page-not-found/page-not-found.html` por:
 
 ```html
 <h1 class="display-1">404 Page not found!</h1>
@@ -486,8 +484,7 @@ Registrar en `src/app/main/index.ts` las nuevas clases creadas.
 `src/app/main/index.ts`
 
 ```ts
-export * from './home/home'
-export * from './page-not-found/page-not-found'
+:
 export * from './header/header'
 export * from './footer/footer'
 ```
