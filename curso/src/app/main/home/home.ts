@@ -9,7 +9,7 @@ import { LoggerService } from '../../../lib/my-library';
 })
 export class Home {
     protected readonly title = signal('curso');
-  constructor(out: LoggerService) {
+  constructor(_out: LoggerService) {
     // out.log('Entro en la página de inicio')
   }
 }

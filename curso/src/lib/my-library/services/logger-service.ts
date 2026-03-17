@@ -9,25 +9,25 @@ export class LoggerService {
   constructor(@Optional() @Inject(ERROR_LEVEL) nivel?: number) {
     this.nivel = nivel ?? 99
   }
-  public error(msg: string): void {
+  public error(message: string): void {
     if (this.nivel > 0)
-      console.error(msg)
+      console.error(message)
   }
-  public warn(msg: string): void {
+  public warn(message: string): void {
     if (this.nivel > 1)
-      console.warn(msg)
+      console.warn(message)
   }
-  public info(msg: string): void {
+  public info(message: string): void {
     if (this.nivel > 2) {
       if (console.info)
-        console.info(msg)
+        console.info(message)
       else
-        console.log(msg)
+        console.log(message)
     }
   }
-  public log(msg: string): void {
+  public log(message: string): void {
     if (this.nivel > 3)
-      console.log(msg)
+      console.log(message)
   }
 
 }
