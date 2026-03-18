@@ -2,13 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 // import { LoggerService } from '../../../lib/my-library';
 import { Unsubscribable } from 'rxjs';
 import { NotificationService, NotificationType } from '../../common-services';
+import { Notification } from "../../main";
 
 @Component({
   selector: 'app-demos',
-  imports: [],
+  imports: [Notification],
   templateUrl: './demos.html',
   styleUrl: './demos.css',
-  // providers: [LoggerService]
+  // providers: [/*LoggerService,*/ NotificationService, ]
 })
 export class Demos implements OnInit, OnDestroy {
   private suscriptor: Unsubscribable | undefined;
