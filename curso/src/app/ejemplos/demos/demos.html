@@ -1,7 +1,50 @@
-<app-notification />
+<!-- <app-notification /> -->
+<h1>Hola {{nombre()}}</h1>
 <p>
+  <input type="text" [(ngModel)]="nombre" >
+  <input type="button" value="saluda" (click)="saluda()" >
+  <input type="button" value="despide" (click)="despide()" >
+  <input type="button" value="di also" (click)="di('algo')" >
+  <input type="button" value="cambia" (click)="cambia()" >
+
   <input type="button" value="Error" (click)="vm.add('Esto es una notificación de error')" >
   <input type="button" value="Warn" (click)="vm.add('Esta notificación es un aviso', vm.NotificationType.warn)" >
   <input type="button" value="Info" (click)="vm.add('Solo una notificación informativa', vm.NotificationType.info)" >
   <input type="button" value="Log" (click)="vm.add('Para trazar con notificaciones', vm.NotificationType.log)" >
+</p>
+
+<p [textContent]="resultado()">Esto se pierde</p>
+<p [innerHTML]="resultado()">Esto se pierde</p>
+
+<p [hidden]="!visible()">Ahora me ves</p>
+@if(visible()){
+  <p [hidden]="!visible()">Ahora me éxito</p>
+}
+
+<p [class]="estetica()">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dolor temporibus eligendi maiores, aperiam, laudantium ratione facere laborum ea dolores alias id itaque, maxime deleniti adipisci recusandae neque odit corrupti.
+</p>
+
+<p [class.semivisible]="!visible()">Ahora me ves bien</p>
+
+<p>Fecha: {{Fecha}}</p>
+<ul>
+  @for(item of listado(); track item.id) {
+  <li [style.background-color]="$odd ? 'lightskyblue' : 'lightcyan'">
+    {{item.nombre}} [Elemento {{$index + 1}} de {{$count}}]
+  </li>
+  } @empty {
+    <li>No hay provincias que mostrar</li>
+  }
+</ul>
+<p><b>Total: </b> {{total()}}</p>
+<p>
+  <select [(ngModel)]="idProvincia" >
+  <option value="">--Elige opción--</option>
+  @for(p of listado(); track p.id) { <option [value]="p.id">{{p.nombre}}</option> }
+</select>
+Seleccionad: {{idProvincia()}}
+  <input type="text" value="Tabarnia" #txtProvincia >
+  <input type="button" value="add" (click)="add(txtProvincia.value)" >
+
 </p>

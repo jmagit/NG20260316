@@ -3,10 +3,11 @@ import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
 import { Unsubscribable } from 'rxjs';
 import { NotificationService, NotificationType } from '../../common-services';
 import { Notification } from "../../main";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-demos',
-  imports: [Notification],
+  imports: [Notification, FormsModule, ],
   templateUrl: './demos.html',
   styleUrl: './demos.css',
   // providers: [/*LoggerService,*/ NotificationService, ]
@@ -21,7 +22,7 @@ export class Demos implements OnInit, OnDestroy {
     { id: 4, nombre: 'ciudad Real'},
   ])
   public readonly total = computed(() => this.listado().length)
-  public readonly idProvicia = signal<number>(2)
+  public readonly idProvincia = signal<number>(2)
   private fecha = new Date('2026-03-18')
 
   public get Fecha() : string { return this.fecha.toISOString() }
@@ -63,7 +64,7 @@ export class Demos implements OnInit, OnDestroy {
     if(!provincia) return;
     const id = this.total() === 0 ? 1 : this.listado().length + 1
     this.listado.update(valor => [ ...valor, { id, nombre: provincia }])
-    this.idProvicia.set(id)
+    this.idProvincia.set(id)
   }
 
   ngOnInit(): void {
