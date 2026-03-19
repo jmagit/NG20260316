@@ -127,7 +127,7 @@ export class Calculadora implements OnInit, OnChanges {
     // Number: double-precision IEEE 754 floating point.
     // 9.9 + 1.3, 0.1 + 0.2, 1.0 - 0.9
     this.Pantalla.set(parseFloat(this.acumulado.toPrecision(15)).toString());
-    // this.miPantalla.set(this.acumulado.toString());
+    // this.Pantalla.set(this.acumulado.toString());
     this.Resumen.set(value == '=' ? '' : (`${this.Pantalla()} ${value}`));
     this.updated.emit(this.acumulado);
     this.operador = value;

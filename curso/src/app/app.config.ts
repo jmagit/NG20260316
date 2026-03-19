@@ -9,6 +9,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { ERROR_LEVEL /*, LoggerService*/ } from '../lib/my-library';
 import { environment } from '../environments/environment';
+import { provideHttpClient, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
+import { ajaxWaitInterceptor } from './main';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,5 +19,6 @@ export const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID, useValue: 'es-ES'},
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(withInterceptorsFromDi(), withInterceptors([ajaxWaitInterceptor])),
   ]
 };
