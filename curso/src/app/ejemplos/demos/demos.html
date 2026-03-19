@@ -1,5 +1,5 @@
 <!-- <app-notification /> -->
-<h1>Hola {{nombre()}}</h1>
+<h1>Hola {{nombre() | elipsis:20 | uppercase }}</h1>
 <p>
   <input type="text" [(ngModel)]="nombre" >
   <input type="button" value="saluda" (click)="saluda()" >
@@ -27,17 +27,17 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dolor temporibus
 
 <p [class.semi-visible]="!visible()">Ahora me ves bien</p>
 
-<p>Fecha: {{Fecha}} <input type="date" [(ngModel)]="Fecha" ></p>
+<p>Fecha: {{Fecha| date:'dd/MMM/yyyy'}} <input type="date" [(ngModel)]="Fecha" ></p>
 <!-- <p>fecha: {{fecha}} <input type="date" [(ngModel)]="fecha" ></p> -->
 
 <p>
-  Calcula: 2 + 2 = {{(2 + 2)}} = {{calcula(2, 2)}}
+  Calcula: 2 + 2 = {{(2 + 2) | number:'3.2-5'}} = {{calcula(2, 2) | currency:'EUR':'symbol':'1.2-2' }}
 </p>
 
 <ul>
-  @for(item of listado(); track item.id) {
+  @for(item of listado() | slice:-5; track item.id) {
   <li [style.background-color]="$odd ? 'lightskyblue' : 'lightcyan'">
-    {{item.nombre}} [Elemento {{$index + 1}} de {{$count}}]
+    {{item.nombre | titlecase}} ({{item.id}}) [Elemento {{$index + 1}} de {{$count}}]
   </li>
   } @empty {
     <li>No hay provincias que mostrar</li>
@@ -47,10 +47,21 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dolor temporibus
 <p>
   <select [(ngModel)]="idProvincia" >
   <option value="">--Elige opción--</option>
-  @for(p of listado(); track p.id) { <option [value]="p.id">{{p.nombre}}</option> }
+  @for(p of listado(); track p.id) { <option [value]="p.id">{{p.nombre | capitalize}}</option> }
 </select>
-Seleccionad: {{idProvincia()}}
+Seleccionado: {{idProvincia()}}
   <input type="text" value="Tabarnia" #txtProvincia >
   <input type="button" value="add" (click)="add(txtProvincia.value)" >
-
 </p>
+
+<my-sizer [(size)]="fontSize">Esto se pierde</my-sizer>
+<app-card [header]="nombre()">
+<p [style.font-size.px]="fontSize()">
+{{ listado() | json}}
+</p>
+
+</app-card>
+
+<app-form-buttons [cancel-text]="'cancela'" (cancel)="saluda()" (send)="despide()" />
+
+<app-grafico-svg />

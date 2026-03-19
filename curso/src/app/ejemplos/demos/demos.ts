@@ -4,10 +4,14 @@ import { Unsubscribable } from 'rxjs';
 import { NotificationService, NotificationType } from '../../common-services';
 import { Notification } from "../../main";
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { CapitalizePipe, ElipsisPipe, Sizer } from '../../../lib/my-library';
+import { FormButtons, Card } from "../../common-component";
+import GraficoSvg from '../grafico-svg/grafico-svg';
 
 @Component({
   selector: 'app-demos',
-  imports: [/*Notification,*/ FormsModule, ],
+  imports: [/*Notification,*/ FormsModule, CommonModule, ElipsisPipe, CapitalizePipe, Sizer, FormButtons, Card, GraficoSvg,],
   templateUrl: './demos.html',
   styleUrl: './demos.css',
   // providers: [/*LoggerService,*/ NotificationService, ]
@@ -36,10 +40,6 @@ export class Demos implements OnInit, OnDestroy {
   public readonly visible = signal(true)
   public readonly estetica = signal({ importante: true, error: false, urgente: true })
 
-  private suscriptor: Unsubscribable | undefined;
-
-  constructor(public vm: NotificationService) { }
-
   saluda() {
     this.resultado.set(`Hola ${this.nombre()}`)
   }
@@ -58,14 +58,18 @@ export class Demos implements OnInit, OnDestroy {
     this.estetica.update(valor => ({ ...valor, error: !valor.error }))
   }
 
-  calcula(a: number, b: number): number { return a + b; }
-
   add(provincia: string) {
     if(!provincia) return;
     const id = this.total() === 0 ? 1 : this.listado().length + 1
     this.listado.update(valor => [ ...valor, { id, nombre: provincia }])
     this.idProvincia.set(id)
   }
+
+  calcula(a: number, b: number): number { return a + b; }
+
+  private suscriptor: Unsubscribable | undefined;
+
+  constructor(public vm: NotificationService) { }
 
   ngOnInit(): void {
     this.suscriptor = this.vm.Notificacion.subscribe(n => {
