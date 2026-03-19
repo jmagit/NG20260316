@@ -19,7 +19,6 @@ export function nifnieValidator(): ValidatorFn {
 }
 @Directive({
   selector: '[nifnie][formControlName],[nifnie][formControl],[nifnie][ngModel]',
-  standalone: true,
   providers: [{ provide: NG_VALIDATORS, useExisting: NIFNIEValidator, multi: true }]
 })
 export class NIFNIEValidator implements Validator {
@@ -36,7 +35,6 @@ export function uppercaseValidator(): ValidatorFn {
 }
 @Directive({
   selector: '[uppercase][formControlName],[uppercase][formControl],[uppercase][ngModel]',
-  standalone: true,
   providers: [{ provide: NG_VALIDATORS, useExisting: UppercaseValidator, multi: true }]
 })
 export class UppercaseValidator implements Validator {
@@ -63,22 +61,21 @@ export class LowercaseValidator implements Validator {
 
 @Directive({
   selector: '[type][formControlName],[type][formControl],[type][ngModel]',
-  standalone: true,
   providers: [
-      { provide: NG_VALIDATORS, useExisting: forwardRef(() => TypeValidator), multi: true }
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => TypeValidator), multi: true }
   ]
 })
 export class TypeValidator implements Validator {
   constructor(private elem: ElementRef) { }
   validate(control: AbstractControl): ValidationErrors | null {
-      const valor = control.value;
-      if (valor) {
-        const dom = this.elem.nativeElement;
-        if (dom.validity) { // dom.checkValidity();
-          return (dom.validity.typeMismatch || dom.validity.stepMismatch) ? { 'type': dom.validationMessage } : null;
-        }
+    const valor = control.value;
+    if (valor) {
+      const dom = this.elem.nativeElement;
+      if (dom.validity) { // dom.checkValidity();
+        return (dom.validity.typeMismatch || dom.validity.stepMismatch) ? { 'type': dom.validationMessage } : null;
       }
-      return null;
+    }
+    return null;
   }
 }
 
@@ -88,8 +85,7 @@ export function notblankValidator(control: AbstractControl): Record<string, stri
 
 @Directive({
   selector: '[notblank][formControlName],[notblank][formControl],[notblank][ngModel]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: NotblankValidator, multi: true }],
-  standalone: true
+  providers: [{ provide: NG_VALIDATORS, useExisting: NotblankValidator, multi: true }]
 })
 export class NotblankValidator implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
@@ -118,7 +114,7 @@ export function equalsToValidator(cntrlBind?: AbstractControl): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (!subscribe && cntrlBind) {
       subscribe = true;
-      cntrlBind.valueChanges.subscribe(() => {  control.updateValueAndValidity();  });
+      cntrlBind.valueChanges.subscribe(() => { control.updateValueAndValidity(); });
     }
     return (!cntrlBind || control.value !== cntrlBind.value) ? { 'equalsTo': `${control.value} distinto de ${cntrlBind?.value}` } : null;
   }
@@ -127,10 +123,10 @@ export function equalsToValidator(cntrlBind?: AbstractControl): ValidatorFn {
   selector: '[equalsTo]', providers: [{ provide: NG_VALIDATORS, useExisting: forwardRef(() => EqualsToValidator), multi: true }],
 })
 export class EqualsToValidator implements Validator, OnChanges {
-  @Input({alias: 'equalsTo', required: true }) cntrlBind?: NgModel
+  @Input({ alias: 'equalsTo', required: true }) cntrlBind?: NgModel
   private validator: ValidatorFn = () => null
   ngOnChanges(_changes: SimpleChanges): void { this.validator = equalsToValidator(this.cntrlBind?.control) }
-  validate(control: AbstractControl): ValidationErrors | null {  return this.validator(control) }
+  validate(control: AbstractControl): ValidationErrors | null { return this.validator(control) }
 }
 
 export const MIS_VALIDADORES = [NIFNIEValidator, TypeValidator, UppercaseValidator, LowercaseValidator,

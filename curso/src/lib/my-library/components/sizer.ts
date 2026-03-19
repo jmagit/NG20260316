@@ -3,7 +3,6 @@ import { Component, model } from '@angular/core';
 
 @Component({
   selector: 'my-sizer',
-  standalone: true,
   template: `
     <div [style.font-size.px]="size()">
       <button (click)="dec()">-</button>

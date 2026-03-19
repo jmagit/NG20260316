@@ -4,7 +4,7 @@ import { Footer, Header, NotificationModal, Notification } from "./main";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Footer, Header, NotificationModal, Notification],
+  imports: [RouterOutlet, Footer, Header, /*Notification,*/ NotificationModal, ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

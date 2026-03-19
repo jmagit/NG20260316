@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'exec',
-    standalone: true
+    name: 'exec'
 })
 export class ExecPipe implements PipeTransform {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type, @typescript-eslint/no-explicit-any
@@ -12,8 +11,7 @@ export class ExecPipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'toComaDecimal',
-    standalone: true
+    name: 'toComaDecimal'
 })
 export class ToComaDecimalPipe implements PipeTransform {
   transform(value: number | string): string {

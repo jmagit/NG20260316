@@ -25,9 +25,15 @@
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dolor temporibus eligendi maiores, aperiam, laudantium ratione facere laborum ea dolores alias id itaque, maxime deleniti adipisci recusandae neque odit corrupti.
 </p>
 
-<p [class.semivisible]="!visible()">Ahora me ves bien</p>
+<p [class.semi-visible]="!visible()">Ahora me ves bien</p>
 
-<p>Fecha: {{Fecha}}</p>
+<p>Fecha: {{Fecha}} <input type="date" [(ngModel)]="Fecha" ></p>
+<!-- <p>fecha: {{fecha}} <input type="date" [(ngModel)]="fecha" ></p> -->
+
+<p>
+  Calcula: 2 + 2 = {{(2 + 2)}} = {{calcula(2, 2)}}
+</p>
+
 <ul>
   @for(item of listado(); track item.id) {
   <li [style.background-color]="$odd ? 'lightskyblue' : 'lightcyan'">

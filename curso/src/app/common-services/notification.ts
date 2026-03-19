@@ -1,5 +1,5 @@
 import { computed, Injectable, OnDestroy, signal, WritableSignal } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { LoggerService } from '../../lib/my-library';
 import { Subject } from 'rxjs';
 

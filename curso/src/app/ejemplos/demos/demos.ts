@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-demos',
-  imports: [Notification, FormsModule, ],
+  imports: [/*Notification,*/ FormsModule, ],
   templateUrl: './demos.html',
   styleUrl: './demos.css',
   // providers: [/*LoggerService,*/ NotificationService, ]
@@ -25,10 +25,10 @@ export class Demos implements OnInit, OnDestroy {
   public readonly idProvincia = signal<number>(2)
   private fecha = new Date('2026-03-18')
 
-  public get Fecha() : string { return this.fecha.toISOString() }
+  public get Fecha() : string { return this.fecha.toISOString().substring(0,10) }
   public set Fecha(valor : string) {
     const f = new Date(valor)
-    if(!f || f === this.fecha) return
+    if(f.toString() === "Invalid Date" || f === this.fecha) return
     this.fecha = f
   }
 

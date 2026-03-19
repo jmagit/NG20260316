@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'elipsis',
-    standalone: true
+    name: 'elipsis'
 })
 export class ElipsisPipe implements PipeTransform {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,8 +12,7 @@ export class ElipsisPipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'capitalize',
-    standalone: true
+    name: 'capitalize'
 })
 export class CapitalizePipe implements PipeTransform {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,8 +25,7 @@ export class CapitalizePipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'striptags',
-  standalone: true
+  name: 'striptags'
 })
 export class StripTagsPipe implements PipeTransform {
   transform(text: string, ...allowedTags: string[]): string {
@@ -40,8 +37,7 @@ export class StripTagsPipe implements PipeTransform {
 }
 
 @Pipe({
-  name: 'normalize',
-  standalone: true
+  name: 'normalize'
 })
 export class NormalizePipe implements PipeTransform {
   transform(text: string): string {
@@ -50,8 +46,7 @@ export class NormalizePipe implements PipeTransform {
 }
 
 @Pipe({
-    name: 'errormsg',
-    standalone: true
+    name: 'errormsg'
 })
 export class ErrorMessagePipe implements PipeTransform {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
