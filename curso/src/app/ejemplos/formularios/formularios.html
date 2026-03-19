@@ -1,5 +1,45 @@
 <p>
-  <input type="button" value="Nuevo" (click)="vm.add()">
-  <input type="number" value="0" #key>
-  <input type="button" value="Editar" (click)="vm.edit(+key.value)">
+  <input type="button" value="Nuevo" (click)="vm.add()" />
+  <input type="number" value="0" #key />
+  <input type="button" value="Editar" (click)="vm.edit(+key.value)" />
 </p>
+<form name="miForm" #miForm="ngForm">
+  <div>
+    <label for="id">código:</label>
+        <!-- <input type="number" name="id" id="id" [(ngModel)]="vm.elemento().id" #id="ngModel"
+          required min="1" [readonly]="vm.modo() !== 'add'" [disabled]="vm.modo() !== 'add'">
+        <output class="error" [hidden]="id.valid || miForm.pristine" >{{id.errors | errormsg}}</output> -->
+    @if(vm.modo() === 'add') {
+        <input type="number" name="id" id="id" [(ngModel)]="vm.elemento().id" #id="ngModel"
+          required min="0">
+        <output class="error" [hidden]="id.valid || miForm.pristine" >{{id.errors | errormsg}}</output>
+    } @else {
+      <output>{{vm.elemento().id}}</output>
+    }
+  </div>
+  <div>
+    <label for="nombre">nombre:</label>
+    <input type="text" name="nombre" id="nombre" [(ngModel)]="vm.elemento().nombre"
+      #nombre="ngModel" required minlength="2" maxlength="10" uppercase >
+    <output class="error" [hidden]="nombre.valid">{{nombre.errors | errormsg}}</output>
+    {{nombre.errors | json}}
+  </div>
+  <div>
+    <label for="apellidos">apellidos:</label>
+    <input type="text" name="apellidos" id="apellidos" [(ngModel)]="vm.elemento().apellidos"
+      #apellidos="ngModel" required minlength="2" maxlength="15" nifnie>
+    <output class="error" [hidden]="apellidos.valid">{{apellidos.errors | errormsg}}</output>
+  </div>
+  <div>
+    <label for="edad">edad:</label>
+    <input type="number" name="edad" id="edad" [(ngModel)]="vm.elemento().edad"
+      #edad="ngModel" min="16" max="67">
+    <output class="error" [hidden]="edad.valid">{{edad.errors | errormsg}}</output>
+  </div>
+  <div>
+    <input type="button" value="Enviar" [disabled]="miForm.invalid" (click)="vm.send()" />
+    <input type="button" value="Volver" />
+  </div>
+</form>
+
+{{vm.elemento() | json}}

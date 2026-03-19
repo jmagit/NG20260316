@@ -1,5 +1,8 @@
+import { JsonPipe, UpperCasePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ErrorMessagePipe, NIFNIEValidator, TypeValidator, UppercaseValidator } from '../../../lib/my-library';
 
 type Modos = 'add' | 'edit'
 
@@ -63,7 +66,7 @@ export class PersonaViewModel {
 }
 @Component({
   selector: 'app-formularios',
-  imports: [],
+  imports: [FormsModule, JsonPipe, ErrorMessagePipe, NIFNIEValidator, TypeValidator, UpperCasePipe, UppercaseValidator],
   templateUrl: './formularios.html',
   styleUrl: './formularios.css',
 })
