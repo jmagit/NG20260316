@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CapitalizePipe, ElipsisPipe, Sizer } from '../../../lib/my-library';
 import { FormButtons, Card } from "../../common-component";
-import GraficoSvg from '../grafico-svg/grafico-svg';
+import { Calculadora } from '../calculadora/calculadora';
+// import GraficoSvg from '../grafico-svg/grafico-svg';
 
 @Component({
   selector: 'app-demos',
-  imports: [/*Notification,*/ FormsModule, CommonModule, ElipsisPipe, CapitalizePipe, Sizer, FormButtons, Card, GraficoSvg,],
+  imports: [/*Notification,*/ FormsModule, CommonModule, ElipsisPipe, CapitalizePipe, Sizer, FormButtons, Card /*, GraficoSvg*/, Calculadora],
   templateUrl: './demos.html',
   styleUrl: './demos.css',
   // providers: [/*LoggerService,*/ NotificationService, ]
@@ -91,4 +92,26 @@ export class Demos implements OnInit, OnDestroy {
   //   out.info('Esto es una demo de info')
   //   out.log('Esto es una demo de log')
   // }
+  // Ejemplo de Calculadora
+  idiomas = signal([
+    { codigo: 'en-US', region: 'USA' },
+    { codigo: 'es', region: 'España' },
+    { codigo: 'pt', region: 'Portugal' },
+  ]).asReadonly();
+  idioma = signal(this.idiomas()[0].codigo);
+  calculos = signal<Calculo[]>([]);
+  valCalculadora = signal(666);
+
+  ponResultado(origen: string, valor: number) {
+    this.calculos.update(value => [ ...value, {
+      pos: this.calculos.length + 1,
+      origen,
+      valor: +valor
+    }]);
+  }
+}
+interface Calculo {
+  pos: number
+  origen: string
+  valor: number
 }
