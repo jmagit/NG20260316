@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpContext, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoggerService } from '../../lib/my-library';
 import { NavigationService, NotificationService } from '../common-services';
 import { RESTDAOService, ModoCRUD } from '../core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../security';
+import { AUTH_REQUIRED, AuthService } from '../security';
 
 // Versión interface
 export interface LibroModel {
@@ -30,7 +30,7 @@ const init_value: LibroModel = {
 })
 export class BibliotecaDAOService extends RESTDAOService<LibroModel, number> {
   constructor() {
-    super('biblioteca');
+    super('biblioteca', { context: new HttpContext().set(AUTH_REQUIRED, true)});
   }
 
   page(page: number, rows: number = 20): Observable<{ page: number, pages: number, rows: number, list: LibroModel[] }> {

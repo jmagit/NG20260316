@@ -10,7 +10,7 @@ import { routes } from './app.routes';
 import { ERROR_LEVEL /*, LoggerService*/ } from '../lib/my-library';
 import { environment } from '../environments/environment';
 import { provideHttpClient, withInterceptorsFromDi, withInterceptors, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ajaxWaitInterceptor } from './main';
+import { ajaxWaitInterceptor } from './layout';
 import { AuthInterceptor } from './security';
 
 export const appConfig: ApplicationConfig = {

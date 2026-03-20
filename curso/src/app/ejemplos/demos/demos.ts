@@ -2,7 +2,7 @@ import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
 // import { LoggerService } from '../../../lib/my-library';
 import { Unsubscribable } from 'rxjs';
 import { NotificationService, NotificationType } from '../../common-services';
-import { Notification } from "../../main";
+// import { Notification } from "../../layout";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CapitalizePipe, ElipsisPipe, Sizer } from '../../../lib/my-library';

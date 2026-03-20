@@ -306,7 +306,7 @@ ng generate component layout/NotificationModal
 
 Editar el fichero `src/app/layout/notification-modal/notification-modal.ts` con la clase del componente.
 
-Inyectar en el constructor el `NotificationService` que actuará como ViewModel de la vista (realizar el import correspondiente) y exponerlo como propiedad de solo lectura, para permitir la vinculación desde la plantilla::
+Inyectar en el constructor el `NotificationService` que actuará como ViewModel de la vista (realizar el import correspondiente) y exponerlo como propiedad de solo lectura, para permitir la vinculación desde la plantilla:
 
 ```ts
 export class NotificationModal {
@@ -530,7 +530,7 @@ Notificar en el destructor que el observable se ha completado:
 
 Editar el fichero `src/app/ejemplos/demos/demos.ts`.
 
-Añadir `OnInit` y `OnDestroy` a la lista de interfaces de las clase:
+Añadir `OnInit` y `OnDestroy` a la lista de interfaces de la clase:
 
 ```ts
 export class DemosComponent implements OnInit, OnDestroy {

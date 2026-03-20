@@ -1,6 +1,6 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { Calculadora, Demos, Formularios } from './ejemplos';
-import { Home, PageNotFound } from './main';
+import { Home, PageNotFound } from './layout';
 import { AuthCanActivate, AuthCanActivateChild, AuthService, LoginForm, RegisterUser } from './security';
 // import { ContactosAdd, ContactosEdit, ContactosList, ContactosView } from './contactos';
 

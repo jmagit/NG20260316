@@ -196,7 +196,7 @@ protected idOriginal?: number;
 protected listURL = '/contactos';
 ```
 
-Añadir el constructor e inyectar dependencias::
+Añadir el constructor e inyectar dependencias:
 
 ```ts
   constructor(

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Footer, Header, NotificationModal, /*Notification,*/ AjaxWait } from "./main";
+import { Footer, Header, NotificationModal, /*Notification,*/ AjaxWait } from "./layout";
 import { NavigationService } from './common-services';
 
 @Component({

@@ -216,7 +216,7 @@ Crear el siguiente conjunto de carpetas para estructurar el proyecto. No es nece
 - *`src/app/ejemplos`: Componentes y servicios que cubren el aspecto funcional de ejemplos.*
 - *`src/app/contactos`: Componentes y servicios que cubren el aspecto funcional de gestión de contactos.*
 
-Todas las carpetas deben contar con un archivo `index.ts` (barrel) que oculte la estructura interna y facilite las matenibilidad de las importaciones.
+Todas las carpetas deben contar con un archivo `index.ts` (barrel) que oculte la estructura interna y facilite la mantenibilidad de las importaciones.
 
 Para simular una librería compartida entre diferentes proyectos se crean una serie de carpetas para contener los diferentes tipos de artefactos.
 
@@ -253,7 +253,7 @@ Ejecutar el servidor de desarrollo en el terminal y explorar en el navegador la 
 > No debería mostrar errores en la consola del navegador ni en el terminal del servidor.
 
 > [!NOTE]
-> Se puede mantener arrancado el servidor de desarrollo, en cuyo caso sera necesario abrir un nuevo terminal en Visual Studio Code para el resto de los comandos.
+> Se puede mantener arrancado el servidor de desarrollo, en cuyo caso será necesario abrir un nuevo terminal en Visual Studio Code para el resto de los comandos.
 
 ## Paso 3. Crear los componentes página
 
@@ -349,7 +349,7 @@ export * from './demos/demos'
 
 ## Paso 4. Crear rutas a los componentes página
 
-Añadir en `src/app/app.routes.ts` las rutas a los componentes página recién creados y la código necesario para gestionar el menú principal de la aplicación (agregar las importaciones necesarias).
+Añadir en `src/app/app.routes.ts` las rutas a los componentes página recién creados y el código necesario para gestionar el menú principal de la aplicación (agregar las importaciones necesarias).
 
 ```ts
 export const routes: Routes = [
