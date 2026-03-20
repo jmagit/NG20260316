@@ -29,6 +29,8 @@ export const routes: Routes = [
 
   { path: 'alysia/baxendale', redirectTo: '/contactos/43'},
 
+  { path: 'biblioteca', loadChildren: () => import('./biblioteca/biblioteca-module').then(mod => mod.routes) },
+
   { path: 'config', loadChildren: () => import('./config/config-module').then(mod => mod.routes), canActivateChild: [ AuthCanActivateChild ] },
 
   { matcher: graficoFiles, loadComponent: () => import('./ejemplos/grafico-svg/grafico-svg'), canActivate: [ AuthCanActivate ]},
@@ -48,6 +50,7 @@ export function generaMenu(_auth: AuthService): Option[] {
     { texto: 'Formulario', icono: 'fa-solid fa-chalkboard-user', path: '/formulario', visible: true },
     { texto: 'Contactos', icono: 'fa-solid fa-address-book', path: '/contactos', visible: true },
     { texto: 'Alysia', icono: 'fa-solid fa-address-book', path: '/alysia/baxendale', visible: true },
+    { texto: 'Biblioteca', icono: 'fa-solid fa-book', path: '/biblioteca', visible: true },
     { texto: 'Foto', icono: 'fa-solid fa-image', path: '/no-existe.svg', visible: true },
     { texto: 'Config', icono: 'fa-solid fa-gears', path: '/config', visible: _auth.isAuthenticated(), children: [
       { texto: 'Perfil', icono: 'fa-solid fa-user-pen', path: '/config/perfil', visible: true },
