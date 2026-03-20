@@ -211,7 +211,7 @@ Crear el siguiente conjunto de carpetas para estructurar el proyecto. No es nece
 - `src/app/common-component`: Componentes de uso común en las plantillas de todo el proyecto.
 - `src/app/common-services`: Servicios de uso común en todo el proyecto que no cubren un aspecto especifico.
 - `src/app/security`: Componentes, servicios, interceptores y guardianes que cubren los aspectos de seguridad.
-- *`src/app/main`: Componentes del layout y de página para layout principal de la aplicación.*
+- *`src/app/layout`: Componentes del layout y de página para layout principal de la aplicación.*
 - *`src/app/config`: Componentes y servicios que cubren los aspectos de configuración.*
 - *`src/app/ejemplos`: Componentes y servicios que cubren el aspecto funcional de ejemplos.*
 - *`src/app/contactos`: Componentes y servicios que cubren el aspecto funcional de gestión de contactos.*
@@ -266,16 +266,16 @@ El componente Home representa la página inicial del sitio, a la cual vamos a mo
 En el terminal de Visual Studio Code:
 
 ```bash
-ng g c main/home
+ng g c layout/home
 ```
 
 #### Estilo del componente
 
-Mover el **contenido** de la etiqueta `<style>` de `src/app/app.html` a `src/app/main/home/home.css` y eliminar la etiqueta `<style>` completa de `src/app/app.html`.
+Mover el **contenido** de la etiqueta `<style>` de `src/app/app.html` a `src/app/layout/home/home.css` y eliminar la etiqueta `<style>` completa de `src/app/app.html`.
 
 #### Plantilla del componente
 
-Mover el resto del contenido de `src/app/app.html`, salvo la última línea (`<router-outlet />`) a `src/app/main/home/home.html` sustituyendo su contenido.
+Mover el resto del contenido de `src/app/app.html`, salvo la última línea (`<router-outlet />`) a `src/app/layout/home/home.html` sustituyendo su contenido.
 
 `src/app/app.html`
 
@@ -285,7 +285,7 @@ Mover el resto del contenido de `src/app/app.html`, salvo la última línea (`<r
 
 #### Clase del componente
 
-Mover el contenido de la clase en `src/app/app.ts` a la clase en `src/app/main/home/home.ts`. Añadir o eliminar los import según corresponda.
+Mover el contenido de la clase en `src/app/app.ts` a la clase en `src/app/layout/home/home.ts`. Añadir o eliminar los import según corresponda.
 
 `src/app/app.ts`
 
@@ -294,7 +294,7 @@ export class App {
 }
 ```
 
-`src/app/main/home/home.ts`
+`src/app/layout/home/home.ts`
 
 ```ts
 export class Home {
@@ -309,12 +309,12 @@ El componente PageNotFound representa la página de error cuando no localiza una
 En el terminal de Visual Studio Code:
 
 ```bash
-ng g c main/PageNotFound
+ng g c layout/PageNotFound
 ```
 
 #### Plantilla del componente
 
-Sustituir el contenido de la plantilla `src/app/main/page-not-found/page-not-found.html` por:
+Sustituir el contenido de la plantilla `src/app/layout/page-not-found/page-not-found.html` por:
 
 ```html
 <h1 class="display-1">404 Page not found!</h1>
@@ -334,7 +334,7 @@ ng g c ejemplos/demos
 
 Crear los siguientes ficheros `index.ts` con las re exportación de las clases creadas.
 
-`src/app/main/index.ts`
+`src/app/layout/index.ts`
 
 ```ts
 export * from './home/home'
@@ -349,7 +349,7 @@ export * from './demos/demos'
 
 ## Paso 4. Crear rutas a los componentes página
 
-Añadir en `src/app/app.routes.ts` las rutas a los componentes página recién creados y agregar las importaciones necesarias.
+Añadir en `src/app/app.routes.ts` las rutas a los componentes página recién creados y la código necesario para gestionar el menú principal de la aplicación (agregar las importaciones necesarias).
 
 ```ts
 export const routes: Routes = [
@@ -360,6 +360,29 @@ export const routes: Routes = [
   { path: '404.html', component: PageNotFound },
   { path: '**', component: PageNotFound },
 ];
+
+export function generaMenu(): Option[] {
+  return [
+    { texto: 'Inicio', icono: 'fa-solid fa-house', path: '/inicio', visible: true },
+    { texto: 'Demos', icono: 'fa-solid fa-person-chalkboard', path: '/demos', visible: true },
+    { texto: 'Falla', icono: 'fa-solid fa-ban', path: '/desconocido', visible: true },
+  ]
+}
+
+export interface Option {
+  texto: string
+  icono: string
+  path?: string
+  children?: Child[]
+  visible: boolean
+}
+export interface Child {
+  texto: string
+  icono: string
+  path: string
+  separado?: boolean
+  visible: boolean
+}
 ```
 
 Personalizar la configuración del proveedor de enrutado en `src/app/app.config.ts`
@@ -379,29 +402,14 @@ El componente Header encapsula la cabecera de la aplicación.
 En el terminal de Visual Studio Code:
 
 ```bash
-ng g c main/header
+ng g c layout/header
 ```
 
 #### Clase del componente
 
-`src/app/main/header/header.ts`
+`src/app/layout/header/header.ts`
 
 ```ts
-export interface Option {
-  texto: string
-  icono: string
-  path?: string
-  children?: Child[]
-  visible: boolean
-}
-export interface Child {
-  texto: string
-  icono: string
-  path: string
-  separado?: boolean
-  visible: boolean
-}
-
 @Component({
   selector: 'app-header',
   imports: [RouterLink, RouterLinkActive],
@@ -414,19 +422,16 @@ export class Header {
   constructor() {
     this.actualizaMenu()
   }
+
   actualizaMenu() {
-    this.menu.set([
-      { texto: 'Inicio', icono: 'fa-solid fa-house', path: '/inicio', visible: true },
-      { texto: 'Demos', icono: 'fa-solid fa-person-chalkboard', path: '/demos', visible: true },
-      { texto: 'Falla', icono: 'fa-solid fa-ban', path: '/desconocido', visible: true },
-    ])
+    this.menu.set(generaMenu(this.auth))
   }
 }
 ```
 
 #### Plantilla del componente
 
-`src/app/main/header/header.html`
+`src/app/layout/header/header.html`
 
 ```html
 <header class="m-2 p2">
@@ -445,12 +450,12 @@ El componente Footer encapsula el pie de la aplicación.
 En el terminal de Visual Studio Code:
 
 ```bash
-ng g c main/footer
+ng g c layout/footer
 ```
 
 #### Clase del componente
 
-`src/app/main/footer/footer.ts`
+`src/app/layout/footer/footer.ts`
 
 ```ts
 @Component({
@@ -466,7 +471,7 @@ export class Footer {
 
 #### Plantilla del componente
 
-`src/app/main/footer/footer.html`
+`src/app/layout/footer/footer.html`
 
 ```html
 <footer >
@@ -479,9 +484,9 @@ export class Footer {
 
 ### Referenciado
 
-Registrar en `src/app/main/index.ts` las nuevas clases creadas.
+Registrar en `src/app/layout/index.ts` las nuevas clases creadas.
 
-`src/app/main/index.ts`
+`src/app/layout/index.ts`
 
 ```ts
 :
@@ -536,7 +541,7 @@ Explorar la aplicación con la Herramientas para desarrolladores (Control + May�
 
 Una vez está funcionado, se mejorar la presentación cambiando las plantillas de los componentes del layout principal de la aplicación.
 
-`src/app/main/header/header.html`
+`src/app/layout/header/header.html`
 
 ```html
 <header class="fixed-top">
@@ -597,7 +602,7 @@ Una vez está funcionado, se mejorar la presentación cambiando las plantillas d
 </header>
 ```
 
-`src/app/main/footer/footer.html`
+`src/app/layout/footer/footer.html`
 
 ```html
 <footer class="fixed-bottom d-flex flex-wrap justify-content-between align-items-center p-2 mt-4 me-0 border-top bg-light">
@@ -638,7 +643,7 @@ taller
      │   ├─ common-services
      │   ├─ core
      │   ├─ ejemplos
-     │   ├─ main
+     │   ├─ layout
      │   └─ security
      ├─ environments
      └─ lib

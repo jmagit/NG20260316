@@ -8,7 +8,7 @@ Vamos a crear un servicio que será el encargado de la gestión de las notificac
 
 Para crear la vista, presentación de las notificaciones, crearemos un componente que permitirá la interacción del usuario con múltiples notificaciones.
 
-Siguiendo los principios de modularidad, crearemos un módulo con los servicios generales de la aplicación (carpeta `src/app/common-services`), otro módulo para la capa principal de presentación de la aplicación o layout (carpeta `src/app/main`) y un módulo de característica con los ejemplos de prueba (carpeta `src/app/ejemplos`).
+Siguiendo los principios de modularidad, crearemos un módulo con los servicios generales de la aplicación (carpeta `src/app/common-services`), otro módulo para la capa principal de presentación de la aplicación o layout (carpeta `src/app/layout`) y un módulo de característica con los ejemplos de prueba (carpeta `src/app/ejemplos`).
 
 ## Paso 1. Módulo CommonServices
 
@@ -25,7 +25,7 @@ md src/app/common-services
 Crear el servicio de notificaciones:
 
 ```bash
-ng generate service common-services/Notification
+ng generate service common-services/notification
 ```
 
 Editar el fichero `src/app/common-services/notification.ts`.
@@ -151,14 +151,14 @@ Registrar en `src/app/common-services/index.ts` los nuevos tipos creados (creand
 export * from './notification';
 ```
 
-## Paso 2. Módulo Main
+## Paso 2. Módulo Layout
 
 ### Módulo
 
-Crear la carpeta del módulo de Main:
+Crear la carpeta del módulo de Layout:
 
 ```bash
-md src/app/main
+md src/app/layout
 ```
 
 ### Componente Notification
@@ -166,12 +166,12 @@ md src/app/main
 Crear el componente de notificaciones dentro del módulo:
 
 ```bash
-ng generate component main/notification
+ng generate component layout/notification
 ```
 
 #### La clase del componente
 
-Editar el fichero `src/app/main/notification/notification.ts` con la clase del componente.
+Editar el fichero `src/app/layout/notification/notification.ts` con la clase del componente.
 
 Realizar las importaciones en el componente de las declaraciones utilizadas en la plantilla (realizar el import correspondiente):
 
@@ -200,7 +200,7 @@ Guardar el fichero.
 
 #### La plantilla del componente
 
-Editar el fichero `src/app/main/notification/notification.html`, con la plantilla del componente, y sustituir el código por defecto por:
+Editar el fichero `src/app/layout/notification/notification.html`, con la plantilla del componente, y sustituir el código por defecto por:
 
 ```html
 @if(VM.HayNotificaciones()) {
@@ -228,7 +228,7 @@ Guardar el fichero.
 
 ### Referenciado
 
-Registrar en `src/app/home/index.ts` los nuevos tipos creados (creando el fichero si es necesario).
+Registrar en `src/app/layout/index.ts` los nuevos tipos creados (creando el fichero si es necesario).
 
 ```ts
 :
@@ -296,15 +296,15 @@ Ejecutar y probar. Abrir el inspector de código para verificar las salidas a co
 
 ### Componente NotificationModal
 
-Crear el nuevo componente de notificaciones dentro del módulo Main:
+Crear el nuevo componente de notificaciones dentro del módulo Layout:
 
 ```bash
-ng generate component main/NotificationModal
+ng generate component layout/NotificationModal
 ```
 
 #### La clase del componente
 
-Editar el fichero `src/app/main/notification-modal/notification-modal.ts` con la clase del componente.
+Editar el fichero `src/app/layout/notification-modal/notification-modal.ts` con la clase del componente.
 
 Inyectar en el constructor el `NotificationService` que actuará como ViewModel de la vista (realizar el import correspondiente) y exponerlo como propiedad de solo lectura, para permitir la vinculación desde la plantilla::
 
@@ -320,7 +320,7 @@ Guardar el fichero.
 
 #### La plantilla del componente
 
-Editar el fichero `src/app/main/notification-modal/notification-modal.html`, con la plantilla del componente, y sustituir el código por defecto por:
+Editar el fichero `src/app/layout/notification-modal/notification-modal.html`, con la plantilla del componente, y sustituir el código por defecto por:
 
 ```html
 <style>
@@ -422,7 +422,7 @@ Guardar el fichero.
 
 ### Referenciado
 
-Registrar en `src/app/home/index.ts` los nuevos tipos creados.
+Registrar en `src/app/layout/index.ts` los nuevos tipos creados.
 
 ```ts
 :

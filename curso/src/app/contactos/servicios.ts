@@ -173,20 +173,20 @@ export class ContactosViewModelService {
 
   //#region Tratamiento de errores
   handleError(err: HttpErrorResponse) {
-    let msg: string
+    let message: string
     switch (err.status) {
-      case 0: msg = err.message; break;
-      case 404: msg = `ERROR: ${err.status} ${err.statusText}`; break;
+      case 0: message = err.message; break;
+      case 404: message = `ERROR: ${err.status} ${err.statusText}`; break;
       default:
-        msg = err.error?.['detail'] ?? err.error?.['title'] ?? ''
-        msg = `ERROR: ${err.status} ${err.statusText}.${msg ? ` Detalles: ${msg}` : ''}`
+        message = err.error?.['detail'] ?? err.error?.['title'] ?? ''
+        message = `ERROR: ${err.status} ${err.statusText}.${message ? ` Detalles: ${message}` : ''}`
         if (err.error?.['errors']) {
           for (const cmp in err.error?.['errors'])
-            msg += ` ${cmp}: ${err.error?.['errors'][cmp]}.`
+            message += ` ${cmp}: ${err.error?.['errors'][cmp]}.`
         }
         break;
     }
-    this.notify.add(msg)
+    this.notify.add(message)
   }
   imageErrorHandler(event: Event, item: any) {
     (event.target as HTMLImageElement).src = `/images/user-not-found-${item.sexo === 'H' ? 'male' : 'female'}.png`
@@ -199,9 +199,9 @@ export class ContactosViewModelService {
     if (page < 0) page = this.page().number
     const rows = this.page().rowsPerPage
     this.dao.page(page, rows).subscribe({
-      next: rslt => {
-        this.page.set({ number: rslt.page, totalPages: rslt.pages, totalRows: rslt.rows, rowsPerPage: rows })
-        this.Listado.set(rslt.list);
+      next: data => {
+        this.page.set({ number: data.page, totalPages: data.pages, totalRows: data.rows, rowsPerPage: rows })
+        this.Listado.set(data.list);
         this.Modo.set('list');
       },
       error: err => this.handleError(err)

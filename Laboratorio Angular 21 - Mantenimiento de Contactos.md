@@ -199,11 +199,13 @@ protected listURL = '/contactos';
 Añadir el constructor e inyectar dependencias::
 
 ```ts
-  constructor(protected notify: NotificationService,
+  constructor(
+    protected notify: NotificationService,
     protected out: LoggerService,
     protected dao: ContactosDAOService,
     // public auth: AuthService,
     protected router: Router
+    // protected navigation: NavigationService
   ) { }
 ```
 
@@ -275,7 +277,8 @@ Añadir los comandos para cerrar la vista de detalle o el formulario:
 ```ts
 public cancel(): void {
   this.clear()
-  this.router.navigateByUrl(this.listURL);
+  this.router.navigateByUrl(this.listURL)
+  // this.navigation.back()
 }
 public send(): void {
   switch (this.Modo()) {
@@ -307,20 +310,20 @@ Añadir los manipuladores de errores para su notificación:
 ```ts
 //#region Tratamiento de errores
 handleError(err: HttpErrorResponse) {
-  let msg: string
+  let message: string
   switch (err.status) {
-    case 0: msg = err.message; break;
-    case 404: msg = `ERROR: ${err.status} ${err.statusText}`; break;
+    case 0: message = err.message; break;
+    case 404: message = `ERROR: ${err.status} ${err.statusText}`; break;
     default:
-      msg = err.error?.['detail'] ?? err.error?.['title'] ?? ''
-      msg = `ERROR: ${err.status} ${err.statusText}.${msg ? ` Detalles: ${msg}` : ''}`
+      message = err.error?.['detail'] ?? err.error?.['title'] ?? ''
+      message = `ERROR: ${err.status} ${err.statusText}.${message ? ` Detalles: ${message}` : ''}`
       if (err.error?.['errors']) {
         for (const cmp in err.error?.['errors'])
-          msg += ` ${cmp}: ${err.error?.['errors'][cmp]}.`
+          message += ` ${cmp}: ${err.error?.['errors'][cmp]}.`
       }
       break;
   }
-  this.notify.add(msg)
+  this.notify.add(message)
 }
 imageErrorHandler(event: Event, item: any) {
   (event.target as HTMLImageElement).src = `/images/user-not-found-${item.sexo === 'H' ? 'male' : 'female'}.png`
@@ -337,9 +340,9 @@ load(page: number = -1) {
   if (page < 0) page = this.page().number
   const rows = this.page().rowsPerPage
   this.dao.page(page, rows).subscribe({
-    next: rslt => {
-      this.page.set({ number: rslt.page, totalPages: rslt.pages, totalRows: rslt.rows, rowsPerPage: rows })
-      this.Listado.set(rslt.list);
+    next: data => {
+      this.page.set({ number: data.page, totalPages: data.pages, totalRows: data.rows, rowsPerPage: rows })
+      this.Listado.set(data.list);
       this.Modo.set('list');
     },
     error: err => this.handleError(err)
@@ -678,9 +681,11 @@ Editar el fichero `src/app/contactos/tmpl-form.html` y sustituir el código por 
 
 *Para registrar las rutas elegir una de las dos opciones.*
 
+Editar `src/app/app.routes.ts`:
+
 ### Registro de rutas (opción Carga Ansiosa)
 
-Añadir en `src/app/app.routes.ts` las rutas a los componentes recién creados (agregar las importaciones necesarias).
+Añadir, en el array `routes`, las rutas a los componentes recién creados (agregar las importaciones necesarias).
 
 ```ts
 { path: 'contactos', children: [
@@ -695,7 +700,7 @@ Añadir en `src/app/app.routes.ts` las rutas a los componentes recién creados (
 
 ### Registro de rutas (opción Carga Perezosa)
 
-Añadir en `src/app/app.routes.ts` las rutas a los componentes recién creados (agregar las importaciones necesarias).
+Añadir, en el array `routes`, las rutas a los componentes del módulo recién creado.
 
 ```ts
 { path: 'contactos', loadChildren: () => import('./contactos/contactos-module').then(mod => mod.routes) },
@@ -704,7 +709,7 @@ Añadir en `src/app/app.routes.ts` las rutas a los componentes recién creados (
 
 ### Menú
 
-Da de alta en el menú de `src/app/main/header/header.ts` la opción:
+Da de alta en el array del menú generado por `generaMenu()` las opciones:
 
 ```ts
 { texto: 'Contactos', icono: 'fa-solid fa-address-book', path: '/contactos', visible: true },
