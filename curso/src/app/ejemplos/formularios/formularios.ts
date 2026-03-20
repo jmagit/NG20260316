@@ -66,7 +66,7 @@ export class PersonaViewModel {
 }
 @Component({
   selector: 'app-formularios',
-  imports: [FormsModule, JsonPipe, ErrorMessagePipe, NIFNIEValidator, TypeValidator, UpperCasePipe, UppercaseValidator],
+  imports: [FormsModule, JsonPipe, ErrorMessagePipe, NIFNIEValidator, TypeValidator, UppercaseValidator],
   templateUrl: './formularios.html',
   styleUrl: './formularios.css',
 })
