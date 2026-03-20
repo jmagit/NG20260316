@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { CapitalizePipe, ElipsisPipe, Sizer } from '../../../lib/my-library';
 import { FormButtons, Card } from "../../common-component";
 import { Calculadora } from '../calculadora/calculadora';
+import { RouterLink } from "@angular/router";
 // import GraficoSvg from '../grafico-svg/grafico-svg';
 
 @Component({
   selector: 'app-demos',
-  imports: [/*Notification,*/ FormsModule, CommonModule, ElipsisPipe, CapitalizePipe, Sizer, FormButtons, Card /*, GraficoSvg*/, Calculadora],
+  imports: [/*Notification,*/ FormsModule, CommonModule, ElipsisPipe, CapitalizePipe, Sizer, FormButtons, Card /*, GraficoSvg*/, Calculadora, RouterLink],
   templateUrl: './demos.html',
   styleUrl: './demos.css',
   // providers: [/*LoggerService,*/ NotificationService, ]

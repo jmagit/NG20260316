@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Footer, Header, NotificationModal, Notification, AjaxWait } from "./main";
+import { Footer, Header, NotificationModal, /*Notification,*/ AjaxWait } from "./main";
+import { NavigationService } from './common-services';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,7 @@ import { Footer, Header, NotificationModal, Notification, AjaxWait } from "./mai
   styleUrl: './app.css'
 })
 export class App {
+  constructor(_cargar: NavigationService) {
+    // para generar la instancia de NavigationService
+  }
 }
