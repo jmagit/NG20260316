@@ -108,5 +108,7 @@ Seleccionado: {{idProvincia()}}
 </app-card>
 
 <app-form-buttons [cancel-text]="'cancela'" (cancel)="saluda()" (send)="despide()" />
+<app-list-buttons viewLink="saluda" [can-edit]="true" (edit)="despide()"
+  [can-delete]="true" delete-link="delete" />
 
-<!-- <app-grafico-svg /> -->
+  <!-- <app-grafico-svg /> -->
