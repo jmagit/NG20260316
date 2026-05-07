@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import GraficoSvgComponent from './grafico-svg.component';
+import GraficoSvg from './grafico-svg';
 
-describe('GraficoSvgComponent', () => {
-  let component: GraficoSvgComponent;
-  let fixture: ComponentFixture<GraficoSvgComponent>;
+describe('GraficoSvg', () => {
+  let component: GraficoSvg;
+  let fixture: ComponentFixture<GraficoSvg>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ GraficoSvgComponent ]
+      imports: [ GraficoSvg ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GraficoSvgComponent);
+    fixture = TestBed.createComponent(GraficoSvg);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

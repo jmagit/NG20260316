@@ -1,6 +1,6 @@
 import { computed, Injectable, OnDestroy, signal, WritableSignal } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { LoggerService } from '../../lib/my-library';
+import { LoggerService } from '@my/library';
 import { Subject } from 'rxjs';
 
 export enum NotificationType { error = 'error', warn = 'warn', info = 'info', log = 'log' }

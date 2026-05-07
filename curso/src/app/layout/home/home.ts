@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { LoggerService } from '../../../lib/my-library';
+import { LoggerService } from '@my/library';
 
 @Component({
   selector: 'app-home',

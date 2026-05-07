@@ -2,7 +2,7 @@
 import { HttpContext, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoggerService } from '../../lib/my-library';
+import { LoggerService } from '@my/library';
 import { NavigationService, NotificationService } from '../common-services';
 import { RESTDAOService, ModoCRUD } from '../core';
 import { Observable } from 'rxjs';

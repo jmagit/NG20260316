@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BibliotecaViewModelService } from './servicios';
-import { TypeValidator, ErrorMessagePipe } from '../../lib/my-library';
+import { TypeValidator, ErrorMessagePipe } from '@my/library';
 import { Paginator } from '../common-component';
 
 @Component({

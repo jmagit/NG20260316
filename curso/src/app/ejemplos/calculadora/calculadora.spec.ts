@@ -3,18 +3,18 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ERROR_LEVEL, LoggerService } from '@my/library';
 
-import { CalculadoraComponent } from './calculadora.component';
+import { Calculadora } from './calculadora';
 import { NotificationService, NotificationType } from 'src/app/common-services';
 
 describe('Pruebas aisladas de la calculadora', () => {
-	let calc: CalculadoraComponent;
+	let calc: Calculadora;
 	let log: LoggerService;
   let notify: NotificationService;
 
 	beforeAll(() => {
     log = new LoggerService(0)
     notify = new NotificationService(log)
-		calc = new CalculadoraComponent(log, notify)
+		calc = new Calculadora(log, notify)
 	});
 
 	beforeEach(() => {
@@ -24,8 +24,8 @@ describe('Pruebas aisladas de la calculadora', () => {
 	describe('Método: inicia', () => {
 		it('Inicializa la calculadora', () => {
 			calc.inicia()
-			expect(calc.Pantalla).toBe('0')
-			expect(calc.Resumen).toBe('')
+			expect(calc.Pantalla()).toBe('0')
+			expect(calc.Resumen()).toBe('')
 		})
 	});
 
@@ -33,31 +33,31 @@ describe('Pruebas aisladas de la calculadora', () => {
 		'0123456789'.split('').forEach(digito => {
 			it(`ponDigito ${digito} como string`, () => {
 				calc.ponDigito(digito)
-				expect(calc.Pantalla).toBe(digito)
+				expect(calc.Pantalla()).toBe(digito)
 			})
 		});
 		'a-,'.split('').forEach(digito => {
 			it(`ponDigito ${digito} como error`, () => {
 				calc.ponDigito(digito)
-				expect(calc.Pantalla).toBe('0')
+				expect(calc.Pantalla()).toBe('0')
 			})
 		});
 		for (let digito = 0; digito <= 9; digito++) {
 			it(`ponDigito ${digito} como number`, () => {
 				calc.ponDigito(digito)
-				expect(calc.Pantalla).toBe(digito.toString())
+				expect(calc.Pantalla()).toBe(digito.toString())
 			})
 		}
 		['22', '-1'].forEach(digito => {
 			it(`ponDigito ${digito} como error`, () => {
 				calc.ponDigito(digito)
-				expect(calc.Pantalla).toBe('0')
+				expect(calc.Pantalla()).toBe('0')
 			})
 		});
 		['1234567890', '9876543210', '666'].forEach(caso => {
 			it(`Secuencia ${caso}`, () => {
 				caso.split('').forEach(digito => calc.ponDigito(digito));
-				expect(calc.Pantalla).toBe(caso)
+				expect(calc.Pantalla()).toBe(caso)
 			})
 		});
 	});
@@ -66,13 +66,13 @@ describe('Pruebas aisladas de la calculadora', () => {
 		['1234', '98765', '6.66', Number.POSITIVE_INFINITY].forEach(caso => {
 			it(`Operando validos ${caso}`, () => {
 				calc.ponOperando(caso)
-				expect(calc.Pantalla).toBe(caso.toString())
+				expect(calc.Pantalla()).toBe(caso.toString())
 			})
 		});
 		['$98765', '1234$', ''].forEach(caso => {
 			it(`Operando inválido ${caso}`, () => {
 				calc.ponOperando(caso.toString())
-				expect(calc.Pantalla).toBe('0')
+				expect(calc.Pantalla()).toBe('0')
 			})
 		});
 	});
@@ -82,44 +82,44 @@ describe('Pruebas aisladas de la calculadora', () => {
 			calc.ponDigito(1)
 			calc.ponComa()
 			calc.ponDigito(2)
-			expect(calc.Pantalla).toBe('1.2')
+			expect(calc.Pantalla()).toBe('1.2')
 		})
 
 		it('Repite la coma', () => {
 			calc.ponOperando('0.1')
 			calc.ponComa()
 			calc.ponDigito(2)
-			expect(calc.Pantalla).toBe('0.12')
+			expect(calc.Pantalla()).toBe('0.12')
 		})
 
 		it('Empieza por la coma', () => {
 			calc.ponComa()
 			calc.ponDigito(2)
-			expect(calc.Pantalla).toBe('0.2')
+			expect(calc.Pantalla()).toBe('0.2')
 		})
 	});
 
 	describe('Método: borrar', () => {
 		it('Borra positivo', () => {
 			calc.ponOperando('321')
-			expect(calc.Pantalla).toBe('321')
+			expect(calc.Pantalla()).toBe('321')
 			calc.borrar()
-			expect(calc.Pantalla).toBe('32')
+			expect(calc.Pantalla()).toBe('32')
 			calc.borrar()
-			expect(calc.Pantalla).toBe('3')
+			expect(calc.Pantalla()).toBe('3')
 			calc.borrar()
-			expect(calc.Pantalla).toBe('0')
+			expect(calc.Pantalla()).toBe('0')
 		})
 
 		it('Borra negativo', () => {
 			calc.ponOperando('-123')
-			expect(calc.Pantalla).toBe('-123')
+			expect(calc.Pantalla()).toBe('-123')
 			calc.borrar()
-			expect(calc.Pantalla).toBe('-12')
+			expect(calc.Pantalla()).toBe('-12')
 			calc.borrar()
-			expect(calc.Pantalla).toBe('-1')
+			expect(calc.Pantalla()).toBe('-1')
 			calc.borrar()
-			expect(calc.Pantalla).toBe('0')
+			expect(calc.Pantalla()).toBe('0')
 		})
 	});
 
@@ -127,22 +127,22 @@ describe('Pruebas aisladas de la calculadora', () => {
 		it('Cambia positivo', () => {
 			calc.ponOperando('555')
 			calc.cambiaSigno()
-			expect(calc.Pantalla).toBe('-555')
+			expect(calc.Pantalla()).toBe('-555')
 		})
 
 		it('Cambia negativo', () => {
 			calc.ponOperando('-7032.333')
 			calc.cambiaSigno()
-			expect(calc.Pantalla).toBe('7032.333')
+			expect(calc.Pantalla()).toBe('7032.333')
 		})
 
 		it('Cambia infinito', () => {
 			calc.ponOperando(Number.POSITIVE_INFINITY)
 			calc.cambiaSigno()
-			expect(calc.Pantalla).toBe('-Infinity')
+			expect(calc.Pantalla()).toBe('-Infinity')
 			calc.ponOperando(Number.NEGATIVE_INFINITY)
 			calc.cambiaSigno()
-			expect(calc.Pantalla).toBe('Infinity')
+			expect(calc.Pantalla()).toBe('Infinity')
 		})
 	});
 
@@ -151,7 +151,7 @@ describe('Pruebas aisladas de la calculadora', () => {
 			'%&$^a9:'.split('').forEach(operador => {
 				it(`Operador ${operador} desconocido`, () => {
 					calc.calcula(operador)
-					expect(calc.Pantalla).toBe('0')
+					expect(calc.Pantalla()).toBe('0')
 				})
 			});
 		});
@@ -164,7 +164,7 @@ describe('Pruebas aisladas de la calculadora', () => {
 					calc.calcula('+')
 					calc.ponOperando(caso[1])
 					calc.calcula('=')
-					expect(calc.Pantalla).toBe(caso[2].toString())
+					expect(calc.Pantalla()).toBe(caso[2].toString())
 				})
 			});
 		});
@@ -177,7 +177,7 @@ describe('Pruebas aisladas de la calculadora', () => {
 					calc.calcula('-')
 					calc.ponOperando(caso[1])
 					calc.calcula('=')
-					expect(calc.Pantalla).toBe(caso[2].toString())
+					expect(calc.Pantalla()).toBe(caso[2].toString())
 				})
 			});
 		});
@@ -190,7 +190,7 @@ describe('Pruebas aisladas de la calculadora', () => {
 					calc.calcula('*')
 					calc.ponOperando(caso[1])
 					calc.calcula('=')
-					expect(calc.Pantalla).toBe(caso[2].toString())
+					expect(calc.Pantalla()).toBe(caso[2].toString())
 				})
 			});
 		});
@@ -203,7 +203,7 @@ describe('Pruebas aisladas de la calculadora', () => {
 					calc.calcula('/')
 					calc.ponOperando(caso[1])
 					calc.calcula('=')
-					expect(calc.Pantalla).toBe(caso[2].toString())
+					expect(calc.Pantalla()).toBe(caso[2].toString())
 				})
 			});
 		});
@@ -217,20 +217,20 @@ describe('Pruebas aisladas de la calculadora', () => {
 						calc.calcula(secuencia[i].toString())
 					else
 						calc.ponOperando(secuencia[i])
-				expect(calc.Pantalla).toBe(secuencia[secuencia.length - 1].toString())
+				expect(calc.Pantalla()).toBe(secuencia[secuencia.length - 1].toString())
 			});
 		});
 	});
 });
 
 describe('CalculadoraComponent', () => {
-  let component: CalculadoraComponent;
-  let fixture: ComponentFixture<CalculadoraComponent>;
+  let component: Calculadora;
+  let fixture: ComponentFixture<Calculadora>;
   let notify: NotificationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [CalculadoraComponent],
+    imports: [Calculadora],
     providers: [NotificationService, LoggerService, { provide: ERROR_LEVEL, useValue: 0 }],
     schemas: [NO_ERRORS_SCHEMA]
 })
@@ -238,10 +238,11 @@ describe('CalculadoraComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CalculadoraComponent);
+    fixture = TestBed.createComponent(Calculadora);
     component = fixture.componentInstance;
     notify = TestBed.inject(NotificationService)
-    spyOn(notify, 'add')
+    vi.spyOn(notify, 'add').mockImplementation(() => undefined)
+    // spyOn(notify, 'add')
     fixture.detectChanges();
   });
 
@@ -267,7 +268,8 @@ describe('CalculadoraComponent', () => {
 
   describe('Eventos de teclado', () => {
     it('teclado', () => {
-      spyOn(console, 'log').and.stub()
+      vi.spyOn(console, 'log').mockImplementation(() => undefined)
+      // spyOn(console, 'log').and.stub()
       // const pantalla: HTMLElement = fixture.debugElement.query(By.css('.Pantalla')).nativeElement;
       // const contenedor = fixture.debugElement.query(By.css('.Calculadora'));
       const contenedor = fixture.debugElement;

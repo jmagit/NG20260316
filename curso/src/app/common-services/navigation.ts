@@ -2,7 +2,7 @@ import { Router, NavigationEnd, ActivationStart, GuardsCheckEnd } from '@angular
 
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { LoggerService } from '../../lib/my-library';
+import { LoggerService } from '@my/library';
 
 @Injectable({ providedIn: 'root' })
 export class NavigationService {

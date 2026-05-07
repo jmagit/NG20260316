@@ -7,7 +7,7 @@ import { ActivatedRouteSnapshot, provideRouter, Router, RouterStateSnapshot } fr
 import { environment } from '../../environments/environment';
 import { AuthInterceptor, AuthService, LoginService, AuthCanActivateFn, InRoleCanActivate, AUTH_REQUIRED, AuthWithRedirectCanActivate } from './servicios';
 import { provideLocationMocks } from '@angular/common/testing';
-import { LoggerService } from '../../lib/my-library';
+import { LoggerService } from '@my/library';
 
 describe('AuthService', () => {
   let service: AuthService;

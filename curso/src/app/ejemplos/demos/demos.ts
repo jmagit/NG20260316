@@ -1,11 +1,11 @@
 import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
-// import { LoggerService } from '../../../lib/my-library';
+// import { LoggerService } from '@my/library';
 import { Unsubscribable } from 'rxjs';
 import { NotificationService, NotificationType } from '../../common-services';
 // import { Notification } from "../../layout";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { CapitalizePipe, ElipsisPipe, Sizer } from '../../../lib/my-library';
+import { CapitalizePipe, ElipsisPipe, Sizer } from '@my/library';
 import { FormButtons, Card, ListButtons } from "../../common-component";
 import { Calculadora } from '../calculadora/calculadora';
 import { RouterLink } from "@angular/router";

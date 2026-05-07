@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, HostListener, signa
 import { environment } from '../../../environments/environment';
 import { SlicePipe } from '@angular/common';
 import { NotificationService, NotificationType } from '../../common-services';
-import { LoggerService, ToComaDecimalPipe } from '../../../lib/my-library';
+import { LoggerService, ToComaDecimalPipe } from '@my/library';
 
 type SimboloDecimal = '.' | ',';
 
