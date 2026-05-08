@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     // setupFiles: [ "./setup-vitest.ts" ],
-    ui: false,
+    ui: true,
     coverage: {
       provider: 'v8',
       enabled: true,
