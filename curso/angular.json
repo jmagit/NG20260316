@@ -30,9 +30,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
-            ]
+            "scripts": [ "node_modules/bootstrap/dist/js/bootstrap.bundle.js" ]
           },
           "configurations": {
             "production": {
@@ -78,7 +76,10 @@
           "options": { "proxyConfig": "proxy.conf.json" }
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "runnerConfig": true
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",

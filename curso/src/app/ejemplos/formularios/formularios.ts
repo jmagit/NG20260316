@@ -2,7 +2,7 @@ import { JsonPipe, UpperCasePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ErrorMessagePipe, NIFNIEValidator, TypeValidator, UppercaseValidator } from '@my/library';
+import { ErrorMessagePipe, NIFNIEValidator, TypeValidator, UppercaseValidator } from 'src/lib/my-library';
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';

@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, FormArray, ValidatorFn, AbstractCon
 import { Router } from '@angular/router';
 import { User, RegisterUserDAO, LoginService } from '../servicios';
 import { NotificationService, NotificationType } from '../../common-services';
-import { ErrorMessagePipe, LoggerService } from '@my/library';
+import { ErrorMessagePipe, LoggerService } from 'src/lib/my-library';
 
 @Component({
     selector: 'app-register-user',

@@ -14,11 +14,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "rootDir": "src",
-    "baseUrl": "./",
-    "paths": {
-      "@my/library": ["src/lib/my-library/index.ts"]
-    }
+    "rootDir": "./"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

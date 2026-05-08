@@ -7,7 +7,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, LOCALE_ID } from
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
-import { ERROR_LEVEL /*, LoggerService*/ } from '@my/library';
+import { ERROR_LEVEL /*, LoggerService*/ } from 'src/lib/my-library';
 import { environment } from '../environments/environment';
 import { provideHttpClient, withInterceptorsFromDi, withInterceptors, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ajaxWaitInterceptor } from './layout';

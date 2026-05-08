@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ContactosViewModelService } from './servicios';
-import { TypeValidator, ErrorMessagePipe } from '@my/library';
+import { TypeValidator, ErrorMessagePipe } from 'src/lib/my-library';
 import { Paginator } from '../common-component';
 
 @Component({

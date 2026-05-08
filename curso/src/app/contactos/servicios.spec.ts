@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Servicios } from './servicios';
+import { ContactosViewModelService as Servicios } from './servicios';
 
 describe('Servicios', () => {
   let service: Servicios;

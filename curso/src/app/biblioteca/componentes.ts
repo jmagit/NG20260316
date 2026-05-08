@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BibliotecaViewModelService } from './servicios';
-import { TypeValidator, ErrorMessagePipe } from '@my/library';
 import { Paginator } from '../common-component';
+import { TypeValidator, ErrorMessagePipe } from 'src/lib/my-library';
 
 @Component({
     selector: 'app-libros-list',

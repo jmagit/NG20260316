@@ -4,22 +4,27 @@ import { RegisterUser } from './register-user';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
-import { LoggerService } from '@my/library';
+import { LoggerService } from 'src/lib/my-library';
 import { provideHttpClient } from '@angular/common/http';
 
 describe('RegisterUser', () => {
   let component: RegisterUser;
   let fixture: ComponentFixture<RegisterUser>;
 
-  beforeEach(async() => {
-    const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
+  beforeEach(async () => {
+    const routerSpy = {
+      navigateByUrl: vi.fn().mockName('Router.navigateByUrl'),
+    };
     TestBed.configureTestingModule({
-        schemas: [NO_ERRORS_SCHEMA],
-        providers: [LoggerService, provideHttpClient(), provideHttpClientTesting(),
-            { provide: Router, useValue: routerSpy }],
-        imports: [RegisterUser,],
-    })
-    .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        LoggerService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: Router, useValue: routerSpy },
+      ],
+      imports: [RegisterUser],
+    }).compileComponents();
   });
 
   beforeEach(() => {
