@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { inputBinding, NO_ERRORS_SCHEMA, outputBinding } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { describe, it, beforeEach, expect } from 'vitest'
@@ -290,8 +290,39 @@ describe('Calculadora', () => {
         fixture.detectChanges()
         expect(component.Pantalla()).toBe('0')
       });
-    })
+    });
+    describe('Binding', () => {
+      it('Inicia input signal init', async () => {
+        const fixture = TestBed.createComponent(Calculadora, {
+          bindings: [inputBinding('init', () => 666)],
+        });
+        const component = fixture.componentInstance;
+        await fixture.whenStable()
+        expect(+component.Pantalla()).toBe(666)
+      });
+      it('Cambia input signal init', async () => {
+        let value = 666
+        fixture.componentRef.setInput('init', value);
+        fixture.detectChanges()
+        expect(+component.Pantalla()).toBe(value)
+        value = 123
+        fixture.componentRef.setInput('init', value);
+        fixture.detectChanges()
+        expect(+component.Pantalla()).toBe(value)
+      });
+      it('Emite output signal updated', async () => {
+        const spy = vi.fn();
+        const fixture = TestBed.createComponent(Calculadora, {
+          bindings: [
+            inputBinding('init', () => 666),
+            outputBinding<number>('updated', value => spy(value))
+          ],
+        });
+        const component = fixture.componentInstance;
+        fixture.detectChanges(); await fixture.whenStable()
+        component.calcula('=')
+        expect(spy).toHaveBeenCalledWith(666);
+      })
+    });
   });
-
-
 });

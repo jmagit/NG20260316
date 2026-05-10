@@ -33,7 +33,7 @@ export class BibliotecaDAOService extends RESTDAOService<LibroModel, number> {
     super('biblioteca', { context: new HttpContext().set(AUTH_REQUIRED, true)});
   }
 
-  page(page: number, rows: number = 20): Observable<{ page: number, pages: number, rows: number, list: LibroModel[] }> {
+  override page(page: number, rows: number = 20): Observable<{ page: number, pages: number, rows: number, list: LibroModel[] }> {
     return new Observable(subscriber => {
       const url = `${this.baseUrl}?_page=${page}&_rows=${rows}&_sort=nombre,apellidos`
       this.http.get<any>(url, this.option).subscribe({

@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 
 export abstract class RESTDAOService<T, K> {
@@ -29,4 +29,87 @@ export abstract class RESTDAOService<T, K> {
   remove(id: K, extras = {}): Observable<T> {
     return this.http.delete<T>(`${this.baseUrl}/${id}`, Object.assign({}, this.option, extras));
   }
+  page(page: number, rows: number = 20, orderBy?: string): Observable<{ page: number, pages: number, rows: number, list: T[] }> {
+    return new Observable(subscriber => {
+      const url = `${this.baseUrl}?_page=${page}&_rows=${rows}${orderBy ? ('&_sort=' + orderBy) : ''}`
+      this.http.get<any>(url, this.option).subscribe({
+        next: data => subscriber.next({ page: data.number, pages: data.totalPages, rows: data.totalElements, list: data.content }),
+        error: err => subscriber.error(err)
+      })
+    })
+  }
 }
+export class DAOServiceMock<T, K> extends RESTDAOService<T, K> {
+  private readonly pk: string
+  private readonly listado: T[]
+  constructor(listado: T[]) {
+    super('')
+    this.listado = listado.map(item => ({ ...item }))
+    this.pk = Object.keys(this.listado[0] as Record<string, any>)[0]
+  }
+  override query(): Observable<T[]> {
+    return of(this.listado);
+  }
+  override get(id: K): Observable<T> {
+    if (+id < 0) return this.unknownError(id)
+    const index = this.findIndex(id)
+    if (index < 0)
+      return this.notFound(id)
+    return of(this.listado[index]);
+  }
+  override add(item: T): Observable<T> {
+    const id = (item as Record<string, any>)[this.pk]
+    if (+id < 0) return this.unknownError(id)
+    this.listado.push(item)
+    return of(item);
+  }
+  override change(id: K, item: T): Observable<T> {
+    if (+id < 0) return this.unknownError(id)
+    const index = this.findIndex(id)
+    if (index < 0)
+      return this.notFound(id)
+    this.listado[index] = item;
+    return of(item);
+  }
+  override remove(id: K): Observable<T> {
+    if (+id < 0) return this.unknownError(id)
+    const index = this.findIndex(id)
+    if (index < 0)
+      return this.notFound(id)
+    const item = this.listado[index];
+    this.listado.splice(index, 1)
+    return of(item);
+  }
+  override page(page: number, _rows: number = 20, _orderBy?: string): Observable<{ page: number, pages: number, rows: number, list: any[] }> {
+    return of({ page, pages: 1, rows: this.listado.length, list: this.listado });
+  }
+
+  private findIndex(id: K) {
+    return this.listado.findIndex(item => (item as Record<string, any>)[this.pk] == id)
+  }
+
+  private unknownError(id: K) {
+    return throwError(() => new HttpErrorResponse({
+      status: 0,
+      statusText: 'Not Found',
+      url: `${this.baseUrl}/${id}`,
+      error: {
+        isTrusted: true
+      }
+    })) as Observable<T>
+  }
+  private notFound(id: K) {
+    return throwError(() => new HttpResponse({
+      status: 404,
+      statusText: 'Not Found',
+      url: `${this.baseUrl}/${id}`,
+      body: {
+        "type": "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4",
+        "title": "Not Found",
+        "status": 404,
+        "instance": `${this.baseUrl}/${id}`
+      }
+    })) as Observable<T>
+  }
+}
+

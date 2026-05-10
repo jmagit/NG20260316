@@ -42,7 +42,7 @@ export class Contacto implements ContactoModel {
 }
 
 // Constante para la inicialización (Signal Forms)
-const init_value: ContactoModel = {
+export const init_value: ContactoModel = {
   id: 0,
   // tratamiento: 'Sr.',
   nombre: '',
@@ -64,7 +64,7 @@ export class ContactosDAOService extends RESTDAOService<ContactoModel, number> {
     super('contactos');
   }
 
-  page(page: number, rows: number = 20): Observable<{ page: number, pages: number, rows: number, list: ContactoModel[] }> {
+  override page(page: number, rows: number = 20): Observable<{ page: number, pages: number, rows: number, list: ContactoModel[] }> {
     return new Observable(subscriber => {
       const url = `${this.baseUrl}?_page=${page}&_rows=${rows}&_sort=nombre,apellidos`
       this.http.get<any>(url, this.option).subscribe({
