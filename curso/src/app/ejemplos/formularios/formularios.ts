@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { JsonPipe, UpperCasePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { Injectable } from '@angular/core';
@@ -62,7 +63,7 @@ export class PersonaViewModel {
     telefono: []
   })
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+   
   constructor(private dao: PersonasDAOService, private notify: NotificationService) { }
 
   add() {

@@ -143,7 +143,7 @@ export class Calculadora implements OnInit, OnChanges {
     //   this.ponOperando(this.init);
     // }
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @angular-eslint/no-empty-lifecycle-method
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnChanges(_changes: SimpleChanges): void {
     // if (this.init) {
     //   this.ponOperando(this.init.toString());

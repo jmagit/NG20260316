@@ -3,13 +3,13 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "schematicCollections": [ "angular-eslint" ]
+    "schematicCollections": ["angular-eslint", "playwright-ng-schematics"]
   },
   "newProjectRoot": "projects",
   "projects": {
     "curso": {
       "projectType": "application",
-      "schematics": { },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -30,7 +30,7 @@
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": [ "node_modules/bootstrap/dist/js/bootstrap.bundle.js" ]
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.js"]
           },
           "configurations": {
             "production": {
@@ -73,7 +73,9 @@
             }
           },
           "defaultConfiguration": "development",
-          "options": { "proxyConfig": "proxy.conf.json" }
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test",
@@ -84,7 +86,18 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [ "src/**/*.ts", "src/**/*.html" ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "curso:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "curso:serve:production"
+            }
           }
         }
       }
