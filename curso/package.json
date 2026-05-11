@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --ui",
+    "test": "ng test",
+    "testui": "ng test --ui",
     "coverage": "ng test --coverage --no-watch --no-ui",
     "lint": "ng lint",
     "e2e": "ng e2e"
