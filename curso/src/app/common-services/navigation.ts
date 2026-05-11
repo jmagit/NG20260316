@@ -35,7 +35,7 @@ export class NavigationService {
       delta--;
     }
     const url = this.history.pop() ?? defecto;
-    this.router.navigateByUrl(url);
     this.logger.log(`Back to ${url}`);
+    return this.router.navigateByUrl(url);
   }
 }
